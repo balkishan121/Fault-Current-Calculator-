@@ -1,2 +1,6 @@
-# Fault-Current-Calculator-
-By using basic system parameters as input, the tool offers a simple and effective way to link theory with practice in fault analysis.
+Fault Current Calculator using Symmetrical Fault Analysis
+Introduction
+Short-circuit faults are among the most critical disturbances in power systems, often leading to equipment damage or outages. To ensure safety, accurate fault current estimation is essential for selecting circuit breaker capacities.
+This project creates a lightweight calculator that applies symmetrical fault analysis formulas to compute fault MVA and breaker ratings. By using basic system parameters as input, the tool offers a simple and effective way to link theory with practice in fault analysis.
+Abstract
+The reliable operation of electrical power systems depends heavily on the ability to detect and isolate faults quickly to minimize equipment damage and ensure safety. Symmetrical fault analysis provides a straightforward yet powerful approach to estimating fault levels in a power system. This project presents the development of a simple Fault Current Calculator that computes fault MVA and circuit breaker capacity based on given system parameters such as line impedances, generator ratings, and transformer data. Using standard formulas from symmetrical fault analysis, the tool is implemented in a user-friendly environment (Java /Excel) to enable quick computation without requiring advanced simulation software. The calculator provides a practical and educational solution for students and engineers to understand fault analysis concepts and to determine circuit breaker ratings for reliable system protection.
