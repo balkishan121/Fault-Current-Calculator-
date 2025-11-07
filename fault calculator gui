@@ -1,0 +1,104 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class FaultCurrentCalculator extends JFrame implements ActionListener {
+    // Declare components
+    JLabel title, mvaLabel, voltageLabel, impedanceLabel, faultMvaLabel, faultCurrentLabel;
+    JTextField mvaField, voltageField, impedanceField;
+    JButton calculateButton, clearButton;
+    JTextArea outputArea;
+
+    public FaultCurrentCalculator() {
+        setTitle("Fault Current Calculator - Symmetrical Fault Analysis");
+        setSize(500, 450);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(null);
+        getContentPane().setBackground(new Color(240, 250, 255));
+
+        // Title
+        title = new JLabel("FAULT CURRENT CALCULATOR");
+        title.setFont(new Font("Arial", Font.BOLD, 18));
+        title.setBounds(90, 20, 400, 30);
+        add(title);
+
+        // Input labels and fields
+        mvaLabel = new JLabel("System Base MVA:");
+        mvaLabel.setBounds(50, 80, 150, 25);
+        add(mvaLabel);
+
+        mvaField = new JTextField();
+        mvaField.setBounds(220, 80, 150, 25);
+        add(mvaField);
+
+        voltageLabel = new JLabel("Line Voltage (kV):");
+        voltageLabel.setBounds(50, 120, 150, 25);
+        add(voltageLabel);
+
+        voltageField = new JTextField();
+        voltageField.setBounds(220, 120, 150, 25);
+        add(voltageField);
+
+        impedanceLabel = new JLabel("Total Impedance (pu):");
+        impedanceLabel.setBounds(50, 160, 150, 25);
+        add(impedanceLabel);
+
+        impedanceField = new JTextField();
+        impedanceField.setBounds(220, 160, 150, 25);
+        add(impedanceField);
+
+        // Buttons
+        calculateButton = new JButton("Calculate");
+        calculateButton.setBounds(100, 210, 120, 30);
+        calculateButton.addActionListener(this);
+        add(calculateButton);
+
+        clearButton = new JButton("Clear");
+        clearButton.setBounds(250, 210, 120, 30);
+        clearButton.addActionListener(this);
+        add(clearButton);
+
+        // Output area
+        outputArea = new JTextArea();
+        outputArea.setEditable(false);
+        outputArea.setFont(new Font("Consolas", Font.PLAIN, 14));
+        outputArea.setBorder(BorderFactory.createTitledBorder("Results"));
+        outputArea.setBounds(50, 260, 380, 120);
+        add(outputArea);
+
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == calculateButton) {
+            try {
+                double mva = Double.parseDouble(mvaField.getText());
+                double voltage = Double.parseDouble(voltageField.getText());
+                double impedance = Double.parseDouble(impedanceField.getText());
+
+                if (impedance == 0) {
+                    outputArea.setText("Impedance cannot be zero!");
+                    return;
+                }
+
+                double faultMVA = mva / impedance;
+                double faultCurrent = (faultMVA * 1000) / (Math.sqrt(3) * voltage);
+
+                outputArea.setText(String.format("Fault MVA      : %.2f MVA\nFault Current  : %.2f kA", faultMVA, faultCurrent));
+            } catch (Exception ex) {
+                outputArea.setText("Please enter valid numerical inputs.");
+            }
+        }
+
+        if (e.getSource() == clearButton) {
+            mvaField.setText("");
+            voltageField.setText("");
+            impedanceField.setText("");
+            outputArea.setText("");
+        }
+    }
+
+    public static void main(String[] args) {
+        new FaultCurrentCalculator();
+    }
+}
